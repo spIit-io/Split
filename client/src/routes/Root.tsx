@@ -28,7 +28,7 @@ function Root() {
                 </li>
                 <li>
                   <button className="bg-[#fae6e0] text-black py-2 px-4 border rounded">
-                    <Link to="new">Add New</Link>
+                    <Link to="new">New Payment</Link>
                   </button>
                 </li>
               </ul>
