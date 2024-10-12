@@ -1,33 +1,18 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+  <div className="h-screen w-screen flex flex-col">
+        <div className="bg-[#fae6e0] flex flex-col items-center p-40 grow">
+          <div className="text-4xl text-[#222]">Split</div>
+          <div className="text-lg text-[#222] mt-5">Start tracking payments</div>
+          <input className="mt-28 h-16 w-[64rem] outline outline-1 bg-transparent text-[#5a3422] rounded-lg outline-[#5a3422] px-10 text-lg text-center underline" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
+          <div className="self-start ml-32 mt-10">
+          </div>
+        </div>
+        <div className="bg-[#222] h-20 flex items-center p-10">
+          <div className="text-sm">split.io. Made with ❤️ by <span className="underline">inkitori</span> and <span className="underline">st3bie</span>.</div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
