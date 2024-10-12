@@ -4,8 +4,16 @@
 
 @font-face{
   font-family: "SpaceMono";
+  font-weight: normal;
   src:local("SpaceMono-Regular.ttf"),
   url('./assets/fonts/Space_Mono/SpaceMono-Regular.ttf') 
+}
+
+@font-face{
+  font-family: "SpaceMono";
+  font-weight: bold;
+  src:local("SpaceMono-Bold.ttf"),
+  url('./assets/fonts/Space_Mono/SpaceMono-Bold.ttf') 
 }
 
 :root {
