@@ -4,13 +4,37 @@ function Transactions() {
   return (
     <>
       <div className="text-2xl text-[#222] p-20">
-        <div className="text-center">Transactions</div>
-        <div className="flex flex-col mt-10">
-          <TransactionItem date="10/30/2024" sender="Person" amount={100} />
-          <TransactionItem date="10/30/2024" sender="Person" amount={100} />
-          <TransactionItem date="10/30/2024" sender="Person" amount={100} />
-          <TransactionItem date="10/30/2024" sender="Person" amount={100} />
-        </div>
+        <div className="text-center mb-10">Transaction History</div>
+        <ul className="flex flex-col gap-16">
+          <li>
+            <div>10-12-2024</div>
+            <div className="flex flex-col mt-5 gap-5">
+              <TransactionItem
+                date="10/30/2024"
+                person="Person"
+                amount={100}
+                message={"for chipotle order"}
+              />
+              <TransactionItem
+                date="10/30/2024"
+                person="Person"
+                amount={100}
+                resolved={true}
+              />
+              <TransactionItem date="10/30/2024" person="Person" amount={100} />
+              <TransactionItem date="10/30/2024" person="Person" amount={100} />
+            </div>
+          </li>
+          <li>
+            <div>10-12-2024</div>
+            <div className="flex flex-col mt-5 gap-5">
+              <TransactionItem date="10/30/2024" person="Person" amount={100} />
+              <TransactionItem date="10/30/2024" person="Person" amount={100} />
+              <TransactionItem date="10/30/2024" person="Person" amount={100} />
+              <TransactionItem date="10/30/2024" person="Person" amount={100} />
+            </div>
+          </li>
+        </ul>
       </div>
     </>
   );
