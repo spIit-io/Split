@@ -38,6 +38,26 @@ def new_transaction(request, transaction: TransactionSchema):
         Description=new_transaction.Description
     )
 
+@api.get("/get", response=List[TransactionResponseSchema])
+def get_transactions(request, user_id: str):
+    # Get all transactions where the user is either the outgoing or incoming user
+    transactions = Transactions.objects.filter(
+        models.Q(OutgoingUserID__UserID=user_id) | models.Q(IncomingUserID__UserID=user_id)
+    )
+
+    # Return the list of transactions
+    return [
+        TransactionResponseSchema(
+            TransactionID=transaction.TransactionID,
+            OutgoingUserID=transaction.OutgoingUserID.UserID,
+            IncomingUserID=transaction.IncomingUserID.UserID,
+            Amount=transaction.Amount,
+            PaymentDate=transaction.PaymentDate.strftime('%Y-%m-%d %H:%M:%S'),
+            Description=transaction.Description
+        )
+        for transaction in transactions
+    ]
+
 ### User Account API ###
 
 @api.get("/username")
@@ -62,26 +82,6 @@ def accountLogin(request):
 def payTransactionAuto(request):
     # Dummy automatic payment logic (customize as needed)
     return
-
-@api.get("/get", response=List[TransactionResponseSchema])
-def get_transactions(request, user_id: str):
-    # Get all transactions where the user is either the outgoing or incoming user
-    transactions = Transactions.objects.filter(
-        models.Q(OutgoingUserID__UserID=user_id) | models.Q(IncomingUserID__UserID=user_id)
-    )
-
-    # Return the list of transactions
-    return [
-        TransactionResponseSchema(
-            TransactionID=transaction.TransactionID,
-            OutgoingUserID=transaction.OutgoingUserID.UserID,
-            IncomingUserID=transaction.IncomingUserID.UserID,
-            Amount=transaction.Amount,
-            PaymentDate=transaction.PaymentDate.strftime('%Y-%m-%d %H:%M:%S'),
-            Description=transaction.Description
-        )
-        for transaction in transactions
-    ]
 
 @api.post("/getContacts")
 def getContactAmount(request, user_id: int):
