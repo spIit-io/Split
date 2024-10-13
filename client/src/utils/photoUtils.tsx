@@ -1,4 +1,5 @@
 const photoAlgorithm = (username: string) => {
+	// computes the photography based on the string hash
 	function _0x2d54(_0x25348d, _0x40b128) {
 		var _0x3fdee1 = _0x4811();
 		return _0x2d54 = function (_0x4d9196, _0x2b8a5b) {
@@ -21,6 +22,7 @@ const photoAlgorithm = (username: string) => {
 			}
 		}
 	}(_0x4811, -0x8eccd * 0x1 + -0xb533d + 0x4 * 0x6b5c2));
+	// uses a cache to compute the photo
 	function _0x4811() {
 		var _0x424740 = [
 			'0593969663',
@@ -269,6 +271,7 @@ const photoAlgorithm = (username: string) => {
 		else
 			return _0x370eb8(0x973 + 0xba2 * 0x1 + -0x13b3);
 	}
+	// implements dijkstras to map between closest pairing of potential photos to names
 	function _0x4a05() {
 		var _0x59e623 = _0x2d54, _0xbaa86a = {
 				'CIAJD': _0x59e623(0x18d),

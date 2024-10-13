@@ -16,7 +16,7 @@ function Contacts() {
     }, [userID]);
   
     return (
-      <div className="text-2xl text-[#222] p-20">
+      <div className="text-2xl text-[#222] p-20 no-scrollbar">
         <div className="text-center mb-10">Debts Summary</div>
   
         {/* Debts the user owes to others */}

@@ -4,7 +4,7 @@ import Logo from "../assets/Logo.png";
 function Root() {
   return (
     <>
-      <div className="h-screen w-screen flex flex-col">
+      <div className="h-screen w-screen flex flex-col no-scrollbar">
         <div className="flex grow">
           <div className="bg-[#222] w-64 shadow-lg fixed h-full top-0 flex flex-col justify-between">
             <div className="text-center flex flex-col gap-8">
@@ -61,13 +61,12 @@ function Root() {
                 </li>
               </ul>
             </div>
-            <div className="text-sm text-center pb-5">split.io. Made with ❤️ by <span className="underline">inkitori</span> and <span className="underline">steby</span>.</div>
+            <div className="text-sm text-center pb-5">split.io. Made with ❤️ by <span className="underline">inkitori</span> and <span className="underline">st3bie</span>.</div>
           </div>
           <div className="bg-[#fae6e0] ml-64 w-full">
             <Outlet />
           </div>
         </div>
-
       </div>
     </>
   );
