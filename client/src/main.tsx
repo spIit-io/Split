@@ -6,6 +6,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Receipt from "./routes/Receipt";
 import Transactions from "./routes/Transactions";
+import NewPayment from "./routes/NewPayment";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "transactions",
         element: <Transactions />,
+      },
+      {
+        path: "new",
+        element: <NewPayment />,
       },
     ],
   },
