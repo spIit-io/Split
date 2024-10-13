@@ -1,7 +1,7 @@
 import { apiInstance } from "./axiosConfig";
 import { useState } from "react";
 import axios from 'axios';
-import { Transaction } from "../types";
+import { Transaction } from "../../types/transaction_interface";
 
 
 
