@@ -24,52 +24,39 @@ transactions = []
 
 @api.get("/username")
 def uniqueUsernameCheck(request, username: str):
-    # Check if the username already exists in the system
-    exists = any(user['username'] == username for user in users)
-    return {"available": not exists}
+    return 
 
 @api.post("/accountCreate")
 def accountCreate(request, user: UserSchema):
     # Add new user
-    if any(u['username'] == user.username for u in users):
-        return {"error": "Username already exists"}, 400
-    
-    users.append({"username": user.username, "password": user.password})
-    return {"message": "Account created successfully"}
+    return
 
 @api.post("/accountLogin")
 def accountLogin(request, user: UserSchema):
     # Verify user login
-    found_user = next((u for u in users if u['username'] == user.username and u['password'] == user.password), None)
-    if found_user:
-        return {"message": "Login successful"}
-    return {"error": "Invalid credentials"}, 401
+    return
 
 
 ### Transaction API ###
 @api.post("/new")
 def newTransaction(request, transaction: TransactionSchema):
     # Add new transaction
-    transaction_id = len(transactions) + 1
-    transactions.append({
-        "transaction_id": transaction_id,
-        "user_id": transaction.user_id,
-        "amount": transaction.amount,
-        "description": transaction.description
-    })
-    return {"transaction_id": transaction_id, "message": "Transaction created"}
+    
+    return
 
 @api.post("/pay/automatic")
 def payTransactionAuto(request):
     # Dummy automatic payment logic (customize as needed)
-    return {"status": "Automatic payment initiated"}
+    return
 
 @api.get("/get")
 def getTransaction(request, user_id: int):
     # Get all transactions for a specific user
-    user_transactions = [t for t in transactions if t['user_id'] == user_id]
-    return {"transactions": user_transactions}
+    return
 
+@api.post("/getContacts")
+def getContactAmount(request, user_id: int):
+    return
 
 ### Receipt Parsing API ###
 
