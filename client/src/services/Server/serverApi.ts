@@ -1,8 +1,19 @@
 import { apiInstance } from "./axiosConfig";
 
-export const searchTracks = async (name: string): Promise<TrackObject[]> => {
-	const resData = (await apiInstance.get(`search?q=${name}&type=track`)).data;
-	const tracks = resData.tracks.items;
+export const getTransactions = async (): Promise<any> => {
+	return await apiInstance.get('transactions');
+}
 
-	return tracks;
+export const addPayment = async (username: string, amount: Number, description: string): Promise<any> => {
+	return await apiInstance.post('transactions', {
+		username: username,
+		amount: amount,
+		description: description
+	});
+}
+
+export const resolvePayment = async (paymentId: string) => {
+	return await apiInstance.put(`transactions/${paymentId}`, {
+		resolved: true
+	});
 }

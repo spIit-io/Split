@@ -1,6 +1,17 @@
+import { useEffect, useState } from "react";
 import TransactionItem from "../components/TransactionItem";
+import { getTransactions } from "../services/Server/serverApi";
 
 function Transactions() {
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      setTransactions(await getTransactions());
+    };
+    fetchTransactions();
+  }, []);
+
   return (
     <>
       <div className="text-2xl text-[#222] p-20">
