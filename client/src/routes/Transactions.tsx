@@ -7,6 +7,7 @@ function Transactions() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const userId = 'testuser1';  // Replace with actual user ID logic
 
+  console.log(transactions)
   useEffect(() => {
     const fetchTransactions = async () => {
       const data = await getTransactions(userId);
