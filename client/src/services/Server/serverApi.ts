@@ -7,7 +7,7 @@ const userId = "testuser1"
 
 export const getTransactions = async (userId: string): Promise<Transaction[]> => {
   try {
-    const response = await apiInstance.get(`get?user_id=${userId}`);
+    const response = await apiInstance.get(`transactions?user_id=${userId}`);
     return Array.isArray(response.data) ? response.data : [];  // Ensure an array is returned
   } catch (error) {
     console.error('Error fetching transactions:', error);

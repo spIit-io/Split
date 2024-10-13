@@ -42,7 +42,7 @@ def new_transaction(request, transaction: TransactionSchema):
         Description=new_transaction.Description
     )
 
-@api.get("/get", response=List[TransactionResponseSchema])
+@api.get("/transactions", response=List[TransactionResponseSchema])
 def get_transactions(request, user_id: str):
     # Get all transactions where the user is either the outgoing or incoming user
     transactions = Transactions.objects.filter(
