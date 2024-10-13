@@ -3,6 +3,8 @@ import { useState } from "react";
 import axios from 'axios';
 import { Transaction } from "../../types/transaction_interface";
 
+const userId = "testuser1"
+
 export const getTransactions = async (userId: string): Promise<Transaction[]> => {
   try {
     const response = await apiInstance.get(`get?user_id=${userId}`);
@@ -14,9 +16,10 @@ export const getTransactions = async (userId: string): Promise<Transaction[]> =>
 };
 export const addPayment = async (username: string, amount: Number, description: string): Promise<any> => {
 	return await apiInstance.post('transactions', {
-		username: username,
-		amount: amount,
-		description: description
+		OutgoingUserID: userId,
+        IncomingUserID: username,
+        Amount: amount,
+        Description: description
 	});
 }
 
