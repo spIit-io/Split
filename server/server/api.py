@@ -12,7 +12,6 @@ from PIL import Image
 import pytesseract
 import re
 
-
 api = NinjaAPI()
 
 @api.post("/new", response=TransactionResponseSchema)

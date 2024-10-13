@@ -1,53 +1,37 @@
 import { useEffect, useState } from "react";
 import TransactionItem from "../components/TransactionItem";
 import { getTransactions } from "../services/Server/serverApi";
+import { Transaction } from "../types/transaction_interface";  // Import the Transaction type
 
 function Transactions() {
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const userId = 'testuser1';  // Replace with actual user ID logic
 
   useEffect(() => {
     const fetchTransactions = async () => {
-      setTransactions(await getTransactions());
+      const data = await getTransactions(userId);
+      setTransactions(data);
     };
     fetchTransactions();
-  }, []);
+  }, [userId]);
 
   return (
-    <>
-      <div className="text-2xl text-[#222] p-20">
-        <div className="text-center mb-10">Transaction History</div>
-        <ul className="flex flex-col gap-16">
-          <li>
-            <div>10-12-2024</div>
-            <div className="flex flex-col mt-5 gap-5">
-              <TransactionItem
-                date="10/30/2024"
-                person="Person"
-                amount={100}
-                message={"for chipotle order"}
-              />
-              <TransactionItem
-                date="10/30/2024"
-                person="Person"
-                amount={100}
-                resolved={true}
-              />
-              <TransactionItem date="10/30/2024" person="Person" amount={100} />
-              <TransactionItem date="10/30/2024" person="Person" amount={100} />
-            </div>
+    <div className="text-2xl text-[#222] p-20">
+      <div className="text-center mb-10">Transaction History</div>
+      <ul className="flex flex-col gap-16">
+        {transactions.map((transaction) => (
+          <li key={transaction.TransactionID}>
+            <TransactionItem
+              date={transaction.PaymentDate}
+              person={transaction.OutgoingUserID === userId ? transaction.IncomingUserID : transaction.OutgoingUserID}  // Display the other person involved
+              amount={transaction.Amount}
+              message={transaction.Description}
+              resolved={false}  // Set this based on additional data if available
+            />
           </li>
-          <li>
-            <div>10-12-2024</div>
-            <div className="flex flex-col mt-5 gap-5">
-              <TransactionItem date="10/30/2024" person="Person" amount={100} />
-              <TransactionItem date="10/30/2024" person="Person" amount={100} />
-              <TransactionItem date="10/30/2024" person="Person" amount={100} />
-              <TransactionItem date="10/30/2024" person="Person" amount={100} />
-            </div>
-          </li>
-        </ul>
-      </div>
-    </>
+        ))}
+      </ul>
+    </div>
   );
 }
 
