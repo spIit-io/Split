@@ -17,19 +17,22 @@ class UserSchema(BaseModel):
 ### User Account API ###
 @api.get("/username")
 def uniqueUsernameCheck(request, username):
+    return
     
 @api.post("/accountCreate")
 def accountCreate(request, user=UserSchema):
+    return
     
 @api.get("/accountLogin")
-def accountLogin(request, ):
+def accountLogin(request):
+    return
 
 
 
 ### Transaction API ###
 @api.post("/new")
 def newTransaction(request, username: str, amount:float, message: str):
-    
+
     return
 
 @api.post("/pay/automatic")
@@ -42,7 +45,7 @@ def getTransaction():
     return
 
 @api.parse_receipt("/parse")
-def parse_receipt(request, ):
+def parse_receipt(request):
     image_path = input("Enter the path to your receipt image: ")
     raw_text = extract_text_from_receipt(image_path)
     date = extract_date(raw_text)
