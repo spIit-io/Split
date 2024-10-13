@@ -6,3 +6,13 @@ export interface Transaction {
     PaymentDate: string;
     Description: string;
 }
+
+export interface DebtSummary {
+    UserID: string;
+    TotalDebt: number;
+}
+  
+export interface UserDebts {
+    OwedToOthers: DebtSummary[];
+    OwedByOthers: DebtSummary[];
+}

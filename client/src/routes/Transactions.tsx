@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import TransactionItem from "../components/TransactionItem";
 import { getTransactions } from "../services/Server/serverApi";
-import { Transaction } from "../types/transaction_interface";  // Import the Transaction type
+import { Transaction } from "../types/interfaces";  // Import the Transaction type
 
 function Transactions() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -19,7 +19,7 @@ function Transactions() {
   return (
     <div className="text-2xl text-[#222] p-20">
       <div className="text-center mb-10">Transaction History</div>
-      <ul className="flex flex-col gap-16">
+      <ul className="flex flex-col gap-5 mb-10">
         {transactions.map((transaction) => (
           <li key={transaction.TransactionID}>
             <TransactionItem

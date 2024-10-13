@@ -1,7 +1,7 @@
 import { apiInstance } from "./axiosConfig";
 import { useState } from "react";
 import axios from 'axios';
-import { Transaction } from "../../types/transaction_interface";
+import { Transaction, UserDebts, DebtSummary  } from "../../types/interfaces";
 
 const userId = "testuser1"
 
@@ -14,6 +14,17 @@ export const getTransactions = async (userId: string): Promise<Transaction[]> =>
     return [];  // Return an empty array in case of an error
   }
 };
+
+export const getUserDebts = async (userID: string): Promise<UserDebts> => {
+	try {
+	  const response = await apiInstance.get(`user-debts/${userID}`);
+	  return response.data;
+	} catch (error) {
+	  console.error("Error fetching user debts:", error);
+	  return { OwedToOthers: [], OwedByOthers: [] };  // Return empty debts on error
+	}
+  };
+
 export const addPayment = async (username: string, amount: Number, description: string): Promise<any> => {
 	return await apiInstance.post('transactions', {
 		OutgoingUserID: userId,

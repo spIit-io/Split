@@ -20,5 +20,5 @@ class DebtSummarySchema(Schema):
     TotalDebt: int
 
 class UserDebtsResponseSchema(Schema):
-    OwedToOthers: List[DebtSummarySchema]  # Debts the user owes to others
+    OwedToOthers: List[DebtSummarySchema]
     OwedByOthers: List[DebtSummarySchema]
