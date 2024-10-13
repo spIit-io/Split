@@ -8,6 +8,10 @@ from .models import Transactions, UserInfo
 from .schemas import TransactionSchema, TransactionResponseSchema
 from django.db import models
 from django.db.models import Q
+from PIL import Image
+import pytesseract
+import re
+
 
 api = NinjaAPI()
 
@@ -90,8 +94,8 @@ def getContactAmount(request, user_id: int):
 ### Receipt Parsing API ###
 
 @api.post("/parseReceipt")
-def parse_receipt(request, file: UploadedFile):
-    raw_text = extract_text_from_receipt(file)
+def parse_receipt(request, receiptFile: UploadedFile):
+    raw_text = extract_text_from_receipt(receiptFile)
     date = extract_date(raw_text)
     final_total_price = extract_final_total(raw_text)
     location = extract_location(raw_text)

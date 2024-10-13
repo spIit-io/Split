@@ -1,19 +1,24 @@
 import { useState } from "react";
 import Dropzone from "react-dropzone";
+import { parseReceipt } from "../services/Server/serverApi";
 
 function NewPayment() {
-  const [receiptFile, setReceiptFile] = useState(null);
+  const [username, setUsername] = useState<string>("");
+  const [amount, setAmount] = useState<Number>(0);
+  const [message, setMessage] = useState<string>("");
 
-  console.log(receiptFile);
+  const handleParseReceipt = async (receiptFile: File) => {
+    setAmount(await parseReceipt(receiptFile));
+  };
 
   return (
     <>
       <div className="h-full text-center text-[#222] text-2xl">
         <div className="flex flex-col justify-between h-full">
           <div className="flex flex-col gap-5 pt-20">
-            <div className="text-[#444] py-2 border border-[#444] rounded-md w-1/2">
+            <div className="self-center text-[#444] py-2 border border-[#444] rounded-md w-1/2 cursor-pointer">
               <Dropzone
-                onDrop={(acceptedFiles) => setReceiptFile(acceptedFiles[0])}
+                onDrop={(acceptedFiles) => handleParseReceipt(acceptedFiles[0])}
               >
                 {({ getRootProps, getInputProps }) => (
                   <section>
@@ -36,6 +41,8 @@ function NewPayment() {
                 className="border-[#222] bg-[#fae6e0] pl-3 py-2 text-base outline rounded-md outline-[#9c9c9c] outline-1 placeholder:text-[#9c9c9c]"
               />
               <input
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
                 placeholder="Amount"
                 className="border-[#222] bg-[#fae6e0] pl-3 py-2 text-base outline rounded-md outline-[#9c9c9c] outline-1 placeholder:text-[#9c9c9c]"
               />
