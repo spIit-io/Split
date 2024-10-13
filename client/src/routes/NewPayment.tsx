@@ -1,13 +1,29 @@
+import { useState } from "react";
+import Dropzone from "react-dropzone";
+
 function NewPayment() {
+  const [receiptFile, setReceiptFile] = useState(null);
+
+  console.log(receiptFile);
+
   return (
     <>
       <div className="h-full text-center text-[#222] text-2xl">
         <div className="flex flex-col justify-between h-full">
           <div className="flex flex-col gap-5 pt-20">
-            <div>
-              <button className="text-[#444] py-2 border border-[#444] rounded-md w-1/2">
-                Scan Receipt
-              </button>
+            <div className="text-[#444] py-2 border border-[#444] rounded-md w-1/2">
+              <Dropzone
+                onDrop={(acceptedFiles) => setReceiptFile(acceptedFiles[0])}
+              >
+                {({ getRootProps, getInputProps }) => (
+                  <section>
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      <p>Scan Receipt</p>
+                    </div>
+                  </section>
+                )}
+              </Dropzone>
             </div>
             <div className="flex items-center px-10 my-10">
               <div className="flex-grow border-t border-[#444444]"></div>

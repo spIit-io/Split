@@ -1,4 +1,5 @@
-from ninja import NinjaAPI
+from ninja import NinjaAPI, File
+from ninja.files import UploadedFile
 from pydantic import BaseModel
 import pytesseract
 from PIL import Image
@@ -60,10 +61,9 @@ def getContactAmount(request, user_id: int):
 
 ### Receipt Parsing API ###
 
-@api.post("/parse")
-def parse_receipt(request):
-    image_path = request.data.get("image_path")  # Replace this with actual file input handling
-    raw_text = extract_text_from_receipt(image_path)
+@api.post("/parseReceipt")
+def parse_receipt(request, file: UploadedFile):
+    raw_text = extract_text_from_receipt(file)
     date = extract_date(raw_text)
     final_total_price = extract_final_total(raw_text)
     location = extract_location(raw_text)
