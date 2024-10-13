@@ -1,11 +1,12 @@
 from ninja import NinjaAPI, File
 from ninja.files import UploadedFile
 from typing import List
+from django.db.models import Sum
 from pydantic import BaseModel
 from django.contrib.auth.models import User
 from datetime import datetime
 from .models import Transactions, UserInfo
-from .schemas import TransactionSchema, TransactionResponseSchema
+from .schemas import TransactionSchema, TransactionResponseSchema, DebtSummarySchema, UserDebtsResponseSchema
 from django.db import models
 from django.db.models import Q
 from PIL import Image
@@ -61,6 +62,33 @@ def get_transactions(request, user_id: str):
         for transaction in transactions
     ]
 
+@api.get("/user-debts/{user_id}", response=UserDebtsResponseSchema)
+def get_user_debts(request, user_id: str):
+    # Get debts the user owes to others (outgoing)
+    owed_to_others = Transactions.objects.filter(OutgoingUserID__UserID=user_id).values('IncomingUserID__UserID').annotate(
+        TotalDebt=Sum('Amount')
+    )
+
+    # Get debts others owe to the user (incoming)
+    owed_by_others = Transactions.objects.filter(IncomingUserID__UserID=user_id).values('OutgoingUserID__UserID').annotate(
+        TotalDebt=Sum('Amount')
+    )
+
+    # Format the results to match the schemas
+    debts_owed_to_others = [
+        DebtSummarySchema(UserID=debt['IncomingUserID__UserID'], TotalDebt=debt['TotalDebt'])
+        for debt in owed_to_others
+    ]
+
+    debts_owed_by_others = [
+        DebtSummarySchema(UserID=debt['OutgoingUserID__UserID'], TotalDebt=debt['TotalDebt'])
+        for debt in owed_by_others
+    ]
+
+    return UserDebtsResponseSchema(
+        OwedToOthers=debts_owed_to_others,
+        OwedByOthers=debts_owed_by_others
+    )
 ### User Account API ###
 
 @api.get("/username")

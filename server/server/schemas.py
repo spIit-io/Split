@@ -1,4 +1,5 @@
 from ninja import Schema
+from typing import List
 
 class TransactionSchema(Schema):
     OutgoingUserID: str
@@ -13,3 +14,11 @@ class TransactionResponseSchema(Schema):
     Amount: int
     PaymentDate: str
     Description: str
+
+class DebtSummarySchema(Schema):
+    UserID: str
+    TotalDebt: int
+
+class UserDebtsResponseSchema(Schema):
+    OwedToOthers: List[DebtSummarySchema]  # Debts the user owes to others
+    OwedByOthers: List[DebtSummarySchema]
