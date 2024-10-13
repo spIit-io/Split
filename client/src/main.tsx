@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Receipt from "./routes/Receipt";
 import Transactions from "./routes/Transactions";
 import NewPayment from "./routes/NewPayment";
+import Contacts from "./routes/Contacts";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "new",
         element: <NewPayment />,
+      },
+      {
+        path: "contacts",
+        element: <Contacts />,
       },
     ],
   },
