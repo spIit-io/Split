@@ -21,7 +21,7 @@ function Contacts() {
         {/* Debts the user owes to others */}
         <div className="mb-10">
           <h2 className="text-xl mb-5">Debts You Owe</h2>
-          <ul className="flex flex-col gap-16">
+          <ul className="flex flex-col gap-5">
             {userDebts?.OwedToOthers.length ? (
               userDebts.OwedToOthers.map((debt) => (
                 <li key={debt.UserID} className="border border-[#222] p-5 rounded-md">

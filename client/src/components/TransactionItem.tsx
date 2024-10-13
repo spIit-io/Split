@@ -19,7 +19,7 @@ function TransactionItem({
 
   return (
     <button
-      className="border border-[#222] p-5 rounded-md text-lg transition-all"
+      className="border border-[#222] p-5 rounded-md text-lg transition-all w-full"
       onClick={() => setExpanded(!expanded)}
     >
       <div className="flex items-center justify-between">
