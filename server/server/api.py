@@ -3,6 +3,60 @@ import pytesseract
 from PIL import Image
 import re
 
+api = NinjaAPI()
+
+class TransactionSchema(BaseModel):
+    user_id: int
+    amount: int
+    description: str
+
+class UserSchema(BaseModel):
+    username: str
+    password: str
+
+### User Account API ###
+@api.get("/username")
+def uniqueUsernameCheck(request, username):
+    
+@api.post("/accountCreate")
+def accountCreate(request, user=UserSchema):
+    
+@api.get("/accountLogin")
+def accountLogin(request, ):
+
+
+
+### Transaction API ###
+@api.post("/new")
+def newTransaction(request, username: str, amount:float, message: str):
+    
+    return
+
+@api.post("/pay/automatic")
+def payTransactionAuto():
+
+    return
+
+@api.get("/get")
+def getTransaction():
+    return
+
+@api.parse_receipt("/parse")
+def parse_receipt(request, ):
+    image_path = input("Enter the path to your receipt image: ")
+    raw_text = extract_text_from_receipt(image_path)
+    date = extract_date(raw_text)
+    final_total_price = extract_final_total(raw_text)
+    location = extract_location(raw_text)
+
+    if final_total_price:
+        print(f"Location: {location}")
+        print(f"Date: {date}")
+        print(f"Final Total: ${final_total_price}")
+    else:
+        print("Final total after tax not found.")
+
+### Helper Functions ###
 def extract_text_from_receipt(image_path):
     img = Image.open(image_path)
     text = pytesseract.image_to_string(img)
@@ -34,45 +88,10 @@ def extract_location(text):
         return lines[0]
     else:
         return None
-    
-if __name__ == "__main__":
-    image_path = input("Enter the path to your receipt image: ")
-    raw_text = extract_text_from_receipt(image_path)
-    date = extract_date(raw_text)
-    final_total_price = extract_final_total(raw_text)
-    location = extract_location(raw_text)
-
-    if final_total_price:
-        print(f"Location: {location}")
-        print(f"Date: {date}")
-        print(f"Final Total: ${final_total_price}")
-    else:
-        print("Final total after tax not found.")
-
-
-api = NinjaAPI()
-
-@api.get("/hello")
-def hello(request):
-    return "Hello world"
-
-@api.post("/new")
-def newTransaction(request, username: str, amount:float, message: str):
-    return
-
-@api.post("/pay")
-def payTransaction()
-
-@api.get("/get")
-def getTransaction():
-    return
-
 
 '''
 POST /transaction (add new transaction)
 PUT /transaction (resolve payment)
 GET /debt?userId (get debts for userId)
 GET /transaction?userId (get all transactions for a user)
-
-
 '''
