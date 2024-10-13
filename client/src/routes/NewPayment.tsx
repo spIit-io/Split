@@ -14,6 +14,10 @@ function NewPayment() {
   const handleAddPayment = async (e) => {
     e.preventDefault();
     await addPayment(username, amount * 100, message);
+
+    setUsername("");
+    setAmount(0);
+    setMessage("");
   };
 
   return (

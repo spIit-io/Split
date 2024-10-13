@@ -51,7 +51,7 @@ function Transactions() {
                   <TransactionItem
                     date={transaction.PaymentDate}
                     person={transaction.OutgoingUserID === userId ? transaction.IncomingUserID : transaction.OutgoingUserID}
-                    amount={transaction.Amount}
+                    amount={transaction.Amount/100}
                     message={transaction.Description}
                     resolved={false}  // Set this based on additional data if available
                   />

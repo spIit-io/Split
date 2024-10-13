@@ -8,6 +8,7 @@ import Receipt from "./routes/Receipt";
 import Transactions from "./routes/Transactions";
 import NewPayment from "./routes/NewPayment";
 import Contacts from "./routes/Contacts";
+import Categories from "./routes/Categories"
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
         path: "contacts",
         element: <Contacts />,
       },
+      {
+        path: "categories",
+        element: <Categories />
+      }
     ],
   },
 ]);

@@ -6,7 +6,7 @@ function Root() {
     <>
       <div className="h-screen w-screen flex flex-col">
         <div className="flex grow">
-          <div className="bg-[#222] w-64 shadow-lg fixed h-full top-0">
+          <div className="bg-[#222] w-64 shadow-lg fixed h-full top-0 flex flex-col justify-between">
             <div className="text-center flex flex-col gap-8">
               <div className="pt-8 text-2xl font-bold text-[#00b4d8] pl-14">
                 <Link to="">
@@ -61,11 +61,13 @@ function Root() {
                 </li>
               </ul>
             </div>
+            <div className="text-sm text-center pb-5">split.io. Made with ❤️ by <span className="underline">inkitori</span> and <span className="underline">steby</span>.</div>
           </div>
           <div className="bg-[#fae6e0] ml-64 w-full">
             <Outlet />
           </div>
         </div>
+
       </div>
     </>
   );
