@@ -1,25 +1,40 @@
 from ninja import NinjaAPI, File
 from ninja.files import UploadedFile
+from typing import List
 from pydantic import BaseModel
-import pytesseract
-from PIL import Image
-import re
+from django.contrib.auth.models import User
+from datetime import datetime
+from .models import Transactions, UserInfo
+from .schemas import TransactionSchema, TransactionResponseSchema
 
 api = NinjaAPI()
 
-# Schemas
-class TransactionSchema(BaseModel):
-    user_id: int
-    amount: float
-    description: str
+@api.post("/new", response=TransactionResponseSchema)
+def new_transaction(request, transaction: TransactionSchema):
+    # Fetch the UserInfo objects for the given IDs
+    outgoing_user = UserInfo.objects.get(UserID=transaction.OutgoingUserID)
+    incoming_user = UserInfo.objects.get(UserID=transaction.IncomingUserID)
 
-class UserSchema(BaseModel):
-    username: str
-    password: str
+    # Create a new transaction record in the database
+    new_transaction = Transactions.objects.create(
+        OutgoingUserID=outgoing_user,
+        IncomingUserID=incoming_user,
+        Amount=transaction.Amount,
+        Description=transaction.Description
+    )
 
-# Dummy in-memory storage for demonstration
-users = []
-transactions = []
+    # Convert PaymentDate to string
+    payment_date_str = new_transaction.PaymentDate.strftime('%Y-%m-%d %H:%M:%S')
+
+    # Return the transaction details in the response
+    return TransactionResponseSchema(
+        TransactionID=new_transaction.TransactionID,
+        OutgoingUserID=new_transaction.OutgoingUserID.UserID,
+        IncomingUserID=new_transaction.IncomingUserID.UserID,
+        Amount=new_transaction.Amount,
+        PaymentDate=payment_date_str,  # Convert datetime to string
+        Description=new_transaction.Description
+    )
 
 ### User Account API ###
 
@@ -28,22 +43,18 @@ def uniqueUsernameCheck(request, username: str):
     return 
 
 @api.post("/accountCreate")
-def accountCreate(request, user: UserSchema):
+def accountCreate(request):
     # Add new user
     return
 
 @api.post("/accountLogin")
-def accountLogin(request, user: UserSchema):
+def accountLogin(request):
     # Verify user login
     return
 
 
 ### Transaction API ###
-@api.post("/new")
-def newTransaction(request, transaction: TransactionSchema):
-    # Add new transaction
-    
-    return
+
 
 @api.post("/pay/automatic")
 def payTransactionAuto(request):
