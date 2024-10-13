@@ -1,14 +1,19 @@
 import { useState } from "react";
 import Dropzone from "react-dropzone";
-import { parseReceipt } from "../services/Server/serverApi";
+import { addPayment, parseReceipt } from "../services/Server/serverApi";
 
 function NewPayment() {
   const [username, setUsername] = useState<string>("");
-  const [amount, setAmount] = useState<Number>(0);
+  const [amount, setAmount] = useState<number>(0);
   const [message, setMessage] = useState<string>("");
 
   const handleParseReceipt = async (receiptFile: File) => {
     setAmount(await parseReceipt(receiptFile));
+  };
+
+  const handleAddPayment = async (e) => {
+    e.preventDefault();
+    await addPayment(username, amount * 100, message);
   };
 
   return (
@@ -37,6 +42,8 @@ function NewPayment() {
             </div>
             <div className="text-left px-10 flex flex-col gap-5">
               <input
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 placeholder="Username"
                 className="border-[#222] bg-[#fae6e0] pl-3 py-2 text-base outline rounded-md outline-[#9c9c9c] outline-1 placeholder:text-[#9c9c9c]"
               />
@@ -47,14 +54,19 @@ function NewPayment() {
                 className="border-[#222] bg-[#fae6e0] pl-3 py-2 text-base outline rounded-md outline-[#9c9c9c] outline-1 placeholder:text-[#9c9c9c]"
               />
               <input
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
                 placeholder="Message"
                 className="border-[#222] bg-[#fae6e0] pl-3 py-2 text-base outline rounded-md outline-[#9c9c9c] outline-1 placeholder:text-[#9c9c9c]"
               />
             </div>
           </div>
-          <div className="mb-40 border border-[#222] rounded-md w-96 py-5 self-center">
+          <button
+            className="mb-40 border border-[#222] rounded-md w-96 py-5 self-center"
+            onClick={handleAddPayment}
+          >
             Add Payment
-          </div>
+          </button>
         </div>
       </div>
     </>

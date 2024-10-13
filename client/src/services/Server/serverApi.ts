@@ -18,9 +18,11 @@ export const resolvePayment = async (paymentId: string) => {
 	});
 }
 
-export const parseReceipt = async (receiptFile: File): Promise<Number>  => {
+export const parseReceipt = async (receiptFile: File): Promise<number>  => {
 	const formData = new FormData();
 	formData.append("receiptFile", receiptFile);
+
+	const res = await apiInstance.post('parseReceipt', formData);
 	
-	return (await apiInstance.post('parseReceipt', formData)).data.final_total;
+	return res.data.final_total;
 }

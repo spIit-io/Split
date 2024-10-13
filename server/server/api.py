@@ -15,7 +15,7 @@ import re
 
 api = NinjaAPI()
 
-@api.post("/new", response=TransactionResponseSchema)
+@api.post("/transactions", response=TransactionResponseSchema)
 def new_transaction(request, transaction: TransactionSchema):
     # Fetch the UserInfo objects for the given IDs
     outgoing_user = UserInfo.objects.get(UserID=transaction.OutgoingUserID)
